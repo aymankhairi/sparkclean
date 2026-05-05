@@ -1,0 +1,218 @@
+:root {
+  --main_color: #c6a15b;
+  --bg_color: #0f0f0f;
+  --text_color: #f5f5f5;
+  --muted_text: #aaa;
+}
+
+/* PAGE */
+.gallery_page {
+  background: var(--bg_color);
+  color: var(--text_color);
+}
+
+/* HERO */
+.gallery_hero {
+  height: 70vh;
+  background: url("../img/foodgallery.webp") center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery_overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.95));
+}
+
+.gallery_hero_content {
+  position: relative;
+  text-align: center;
+  max-width: 700px;
+  animation: fadeUp 1s ease;
+}
+
+.gallery_tag {
+  color: var(--main_color);
+  letter-spacing: 3px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.gallery_hero h1 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(36px, 5vw, 60px);
+  margin: 20px 0;
+}
+
+.gallery_hero p {
+  color: var(--muted_text);
+}
+
+/* GRID */
+.gallery_section {
+  padding: 120px 20px;
+}
+
+.gallery_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+/* ITEM */
+.gallery_item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 18px;
+  cursor: pointer;
+
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeUp 0.8s ease forwards;
+}
+
+/* stagger animation */
+.gallery_item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.gallery_item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.gallery_item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.gallery_item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.gallery_item:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.gallery_item img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* HOVER ZOOM */
+.gallery_item:hover img {
+  transform: scale(1.12);
+}
+
+/* soft glow overlay */
+.gallery_overlay_card {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent);
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+.gallery_item:hover .gallery_overlay_card {
+  opacity: 1;
+}
+
+/* ANIMATION */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .gallery_item img {
+    height: 250px;
+  }
+}
+.gallery_filters {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.gallery_filters button {
+  padding: 10px 20px;
+  border: 1px solid rgba(198, 161, 91, 0.3);
+  background: transparent;
+  color: var(--text_color);
+  cursor: pointer;
+  border-radius: 30px;
+  transition: 0.3s ease;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+.gallery_filters button:hover {
+  border-color: var(--main_color);
+  color: var(--main_color);
+}
+
+.gallery_filters button.active {
+  background: var(--main_color);
+  color: #000;
+}
+/* LIGHTBOX BACKGROUND */
+.lightbox {
+  position: fixed;
+  padding-top: 150px;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  cursor: pointer;
+}
+
+/* IMAGE */
+.lightbox_img {
+  max-width: 75%;
+  max-height: 85%;
+  border-radius: 16px;
+  box-shadow: 0 0 60px rgba(198, 161, 91, 0.25);
+}
+.lightbox::after {
+  content: "Click anywhere to close";
+  position: absolute;
+  bottom: 30px;
+  color: #aaa;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
+.gallery_loader {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* GOLD RING LOADER */
+.loader_ring {
+  width: 50px;
+  height: 50px;
+  border: 2px solid rgba(198, 161, 91, 0.2);
+  border-top: 2px solid #c6a15b;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  box-shadow: 0 0 15px rgba(198, 161, 91, 0.3);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
