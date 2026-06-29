@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import Logo from "../../img/restlogo2.png";
+import Logo from "../../img/logos.png";
 import { Link } from "react-router-dom";
 import { CiBoxList } from "react-icons/ci";
 import "../../css/header.css";
-import SearchBox from "./SearchBox";
 import { useLocation } from "react-router-dom";
 import { FiMenu } from "react-icons/fi";
 const NavLinks = [
   { title: "Home", link: "/" },
-  { title: "Menu", link: "/menu" },
-  { title: "Our Story", link: "/about" },
-  { title: "Book", link: "/book" },
+  { title: "Services", link: "/services" },
+  { title: "About Us", link: "/about" },
   { title: "Gallery", link: "/gallery" },
-  { title: "Visit", link: "/contact" },
+  { title: "Book", link: "/book" },
+  { title: "Contact", link: "/contact" },
 ];
 function TopHeader() {
   const menuRef = useRef();
@@ -25,11 +24,20 @@ function TopHeader() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [menuOpen]);
   return (
     <div className="top_header">
       <div className="container">
@@ -50,10 +58,10 @@ function TopHeader() {
               <FiMenu />
             </div>
           </div>
-          {/* <div className="icons">
-            <FiMenu />
-          </div> */}
           {/* </Link> */}
+          {menuOpen && (
+            <div className="menu_backdrop" onClick={() => setMenuOpen(false)} />
+          )}
           <div
             ref={menuRef}
             className={`nav_links mobile_nav ${menuOpen ? "active" : ""}`}
@@ -61,15 +69,14 @@ function TopHeader() {
             <ul>
               {NavLinks.map((item) => (
                 <li
-                  // className={location.pathname === item.link ? "active" : ""}
+                  key={item.link}
                   className={`nav_item ${location.pathname === item.link ? "active" : ""}`}
                 >
                   <Link
                     to={item.link}
-                    key={item.link}
                     onClick={() => {
-                      window.scrollTo(0, 0);
                       setMenuOpen(false);
+                      window.scrollTo({ top: 0, behavior: "smooth" });
                     }}
                   >
                     {item.title}
@@ -83,5 +90,4 @@ function TopHeader() {
     </div>
   );
 }
-
 export default TopHeader;

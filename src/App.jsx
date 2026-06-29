@@ -8,10 +8,11 @@ import Contact from "./page/contact/Contact";
 import About from "./page/about/About";
 import Footer from "./components/footer/Footer";
 import ScrollToTop from "./components/ScrolToTop";
-import Menu from "./page/menu/Menu";
 import Book from "./page/book/Book";
 import Gallery from "./page/gallery/Gallery";
-import Experience from "./page/experience/Experience";
+import Services from "./page/services/Services";
+import Checkout from "./page/checkout/Checkout";
+import Success from "./page/checkout/Success";
 function App() {
   return (
     <>
@@ -29,22 +30,21 @@ function App() {
           },
         }}
       />
+      <ScrollToTop />
       <AnimatePresence mode="wait">
-        <ScrollToTop />
-
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
-          <Route path="/menu" element={<Menu />} />
+          <Route path="/services" element={<Services />} />
           <Route path="/book" element={<Book />} />
           <Route path="/gallery" element={<Gallery />} />
-          <Route path="/experience" element={<Experience />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/success" element={<Success />} />
         </Routes>
-        <Footer />
       </AnimatePresence>
+      <Footer />
     </>
   );
 }
-
 export default App;

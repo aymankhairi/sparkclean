@@ -1,10 +1,9 @@
 :root {
-  --main_color: #c6a15b; /* gold accent */
-  --bg_color: #0f0f0f; /* deep black */
-  --secondary_bg: #1a1a1a; /* dark panels */
-  --text_color: #f5f5f5;
-  --muted_text: #aaa;
-  --border_color: rgba(255, 255, 255, 0.08);
+  --primary: #2563eb;
+  --secondary: #60a5fa;
+  --accent: #fbbf24;
+  --bg: #f8fafc;
+  --text: #0f172a;
 }
 .checkout {
   margin: 10px 0;
@@ -77,7 +76,7 @@
   border-bottom: 1px solid var(--border_color);
   padding: 20px 0;
   margin-bottom: 20px;
-  color: var(--main_color);
+  color: var(--primary);
   /* NEW */
   font-size: 26px;
   font-weight: 600;
@@ -237,12 +236,10 @@
   background-color: transparent;
   width: 32px;
   height: 32px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  padding: 0; /* IMPORTANT */
+  padding: 0;
 }
 .checkout .items .item_cart .delete_item svg {
   font-size: 25px;
@@ -283,7 +280,7 @@
 }
 /* NEW */
 .checkout .items .item_cart .quantity_control button:hover {
-  background: var(--main_color);
+  background: var(--primary);
   color: white;
   transform: scale(1.1);
 }
@@ -362,7 +359,7 @@
   font-weight: bold;
   /* NEW bottom */
   font-weight: 700;
-  color: var(--main_color);
+  color: var(--primary);
   letter-spacing: 0.5px;
   text-shadow: 0 0 10px rgba(140, 24, 133, 0.25);
 }
@@ -389,7 +386,7 @@
 }
 .checkout .bottom_summary .button_div button {
   width: 100%;
-  background: var(--main_color);
+  background: var(--primary);
   color: var(--white_color);
   border: 2px solid var(--border_color);
   padding: 15px 0;
@@ -405,7 +402,7 @@
 }
 .checkout .bottom_summary .button_div button:hover {
   background: transparent;
-  color: var(--main_color);
+  color: var(--primary);
 }
 /* NEW */
 .empty_cart {
@@ -468,7 +465,7 @@
 .payment_card:hover {
   transform: translateY(-2px);
   box-shadow: 0 8px 20px rgba(140, 24, 133, 0.12);
-  border-color: var(--main_color);
+  border-color: var(--primary);
 }
 
 /* text */
@@ -508,15 +505,15 @@
 
 /* ACTIVE STATE */
 .payment_card.active {
-  border-color: var(--main_color);
+  border-color: var(--primary);
   background: rgba(140, 24, 133, 0.06);
   box-shadow: 0 10px 25px rgba(140, 24, 133, 0.15);
 }
 
 .payment_card.active .checkmark {
-  background: var(--main_color);
+  background: var(--primary);
   color: white;
-  border-color: var(--main_color);
+  border-color: var(--primary);
   transform: scale(1.1);
 }
 .card_overlay {
@@ -561,7 +558,7 @@
 }
 
 .card_buttons button:first-child {
-  background: var(--main_color);
+  background: var(--primary);
   color: white;
 }
 

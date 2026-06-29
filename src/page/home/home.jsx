@@ -1,215 +1,394 @@
-import React, { useRef } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import {
+  FaHome,
+  FaBuilding,
+  FaBroom,
+  FaStar,
+  FaCheckCircle,
+  FaHeadset,
+  FaRegClock,
+  FaUsers,
+} from "react-icons/fa";
 import "../../css/home.css";
-import PageTransition from "../../components/PageTransition";
-import dish1 from "../../img/dish1.webp";
-import dish2 from "../../img/dish2.webp";
-import dish3 from "../../img/dish3.webp";
-import { WiStars } from "react-icons/wi";
+import homeCleaningImg from "../../img/homeCleaningImg.webp";
+import cleaninghero from "../../img/cleaning-hero.webp";
+import officeCleaningImg from "../../img/officeCleaningImg.webp";
 
-import about from "../../img/about.webp";
-import reservationImg from "../../img/reservation.webp";
-function Home() {
+export default function Home() {
   const navigate = useNavigate();
-  const dateRef = useRef(null);
-  const timeRef = useRef(null);
-  const dishes = [
+  const [quickForm, setQuickForm] = useState({
+    name: "",
+    phone: "",
+    service: "Home Cleaning",
+  });
+  const validateQuickForm = () => {
+    const errors = {};
+    if (!quickForm.name.trim()) {
+      errors.name = "Name is required";
+    }
+    if (!quickForm.phone.trim()) {
+      errors.phone = "Phone is required";
+    } else if (!/^\+?[0-9]+$/.test(quickForm.phone)) {
+      errors.phone = "Only numbers allowed";
+    }
+    return errors;
+  };
+  const [quickErrors, setQuickErrors] = useState({});
+  const [quickSuccess, setQuickSuccess] = useState(false);
+  const [billing, setBilling] = useState("monthly");
+  const handleChoosePlan = (plan) => {
+    navigate("/checkout", { state: { plan, billing } });
+  };
+  const plans = [
     {
-      img: dish1,
-      title: "Fried Shrimp Delight",
-      desc: "Crispy fried shrimp with signature house sauce",
+      name: "Basic Clean",
+      monthly: 79,
+      yearly: 790,
+      desc: "Essential home cleaning",
+      features: [
+        "1–2 bedroom home cleaning",
+        "Dusting & vacuuming",
+        "Kitchen surface cleaning",
+        "Bathroom sanitation",
+        "Trash removal",
+      ],
     },
     {
-      img: dish2,
-      title: "Herb Grilled Fish",
-      desc: "Fresh fish with seasonal vegetables & lemon glaze",
+      name: "Premium Deep Clean",
+      monthly: 149,
+      yearly: 1490,
+      featured: true,
+      desc: "Deep cleaning for homes & small offices",
+      features: [
+        "Full home / office cleaning",
+        "Deep kitchen & bathroom cleaning",
+        "Inside appliance cleaning",
+        "Window cleaning (inside)",
+        "Eco-friendly products",
+      ],
     },
     {
-      img: dish3,
-      title: "Royal Caviar Plate",
-      desc: "Premium caviar served with artisan greens",
+      name: "Move In/Out Clean",
+      monthly: 299,
+      yearly: 2990,
+      desc: "Complete cleaning for moving situations",
+      features: [
+        "Full property deep clean",
+        "Inside cabinets & drawers",
+        "Wall spot cleaning",
+        "Floor deep wash",
+        "Ready-to-move handover clean",
+      ],
     },
   ];
+  const services = [
+    {
+      icon: <FaHome />,
+      title: "Home Cleaning",
+      image: homeCleaningImg,
+      slug: "home-cleaning",
+      desc: "Regular and one-time cleaning services to keep your home fresh, tidy, and comfortable.",
+    },
+    {
+      icon: <FaBuilding />,
+      title: "Office Cleaning",
+      image: officeCleaningImg,
+      slug: "office-cleaning",
+      desc: "Professional cleaning solutions designed to create a productive and welcoming work environment.",
+    },
+    {
+      icon: <FaHome />,
+      title: "Move-In / Move-Out Cleaning",
+      image: cleaninghero,
+      slug: "move-cleaning",
+      desc: "Thorough cleaning services for tenants, landlords, and homeowners before or after moving.",
+    },
+  ];
+  const floatingIcons = [
+    FaStar,
+    FaHeadset,
+    FaRegClock,
+    FaBroom,
+    FaHome,
+    FaUsers,
+  ];
   return (
-    <PageTransition>
-      <div className="home">
-        {/* HERO */}
-        <section className="hero">
-          <div className="hero_overlay" />
-
-          <div className="hero_content">
-            <span className="hero_tag">Fine Dining Experience</span>
-
-            <h1>
-              Where Taste <br /> Meets Luxury
-            </h1>
-
-            <p>
-              An unforgettable culinary journey crafted with passion, elegance,
-              and the finest ingredients.
-            </p>
-
-            <div className="hero_actions">
-              <button className="btn_primary" onClick={() => navigate("/book")}>
-                Reserve Table
-              </button>
-              <button
-                className="btn_secondary"
-                onClick={() => navigate("/menu")}
-              >
-                View Menu
-              </button>
-            </div>
+    <div className="home">
+      <section className="hero">
+        <div className="hero-content">
+          <h1>
+            Premium Cleaning <span>Made Effortless</span>
+          </h1>
+          <p>Professional home, office and commercial cleaning services.</p>
+          <div className="hero-actions">
+            <button
+              className="btn-primary"
+              onClick={() => navigate("/book#book_section")}
+            >
+              Book Service
+            </button>
+            <button
+              className="btn-secondary"
+              onClick={() => navigate("/services")}
+            >
+              View Services
+            </button>
           </div>
-        </section>
-
-        {/* SIGNATURE */}
-        <section className="section">
-          <h2 className="section_title">Signature Creations</h2>
-
-          <div className="dish_grid">
-            {dishes.map((dish, i) => (
-              <div className="dish_card" key={i}>
-                <img src={dish.img} alt={dish.title} />
-
-                <div className="dish_overlay">
-                  <h3>{dish.title}</h3>
-                  <p>{dish.desc}</p>
+        </div>
+        <div className="booking-card">
+          <h3>Quick Booking</h3>
+          <div className="input-group">
+            <input
+              placeholder="Full Name"
+              value={quickForm.name}
+              onChange={(e) =>
+                setQuickForm({ ...quickForm, name: e.target.value })
+              }
+            />
+            {quickErrors.name && (
+              <small className="error_text">{quickErrors.name}</small>
+            )}
+          </div>
+          <div className="input-group">
+            <input
+              type="tel"
+              inputMode="tel"
+              placeholder="Phone Number"
+              value={quickForm.phone}
+              onChange={(e) => {
+                let value = e.target.value;
+                value = value.replace(/[^0-9+]/g, "");
+                if (value.indexOf("+") > 0) {
+                  value = value.replace(/\+/g, "");
+                }
+                if ((value.match(/\+/g) || []).length > 1) {
+                  value = "+" + value.replace(/\+/g, "");
+                }
+                setQuickForm({
+                  ...quickForm,
+                  phone: value,
+                });
+              }}
+            />
+            {quickErrors.phone && (
+              <small className="error_text">{quickErrors.phone}</small>
+            )}
+          </div>
+          <div className="input-group">
+            <select
+              value={quickForm.service}
+              onChange={(e) =>
+                setQuickForm({ ...quickForm, service: e.target.value })
+              }
+            >
+              <option>Home Cleaning</option>
+              <option>Office Cleaning</option>
+              <option>Deep Cleaning</option>
+            </select>
+          </div>
+          <button
+            className="btn-primary"
+            onClick={() => {
+              const validation = validateQuickForm();
+              if (Object.keys(validation).length > 0) {
+                setQuickErrors(validation);
+                setQuickSuccess(false);
+                return;
+              }
+              setQuickErrors({});
+              setQuickSuccess(true);
+              setTimeout(() => {
+                setQuickSuccess(false);
+                setQuickForm({
+                  name: "",
+                  phone: "",
+                  service: "Home Cleaning",
+                });
+              }, 2000);
+            }}
+          >
+            Book
+          </button>
+          {quickSuccess && <div className="quick_success">Booking sent ✓</div>}
+        </div>
+      </section>
+      <section className="trust-section">
+        <span className="about-tag">Why Choose Us</span>
+        <div className="trust-floating-icons">
+          {Array.from({ length: 25 }).map((_, i) => {
+            const Icon = floatingIcons[i % floatingIcons.length];
+            return (
+              <Icon
+                key={i}
+                className={`t-icon i${(i % 5) + 1}`}
+                style={{
+                  left: `${Math.random() * 100}%`,
+                  top: `${Math.random() * 100}%`,
+                  bottom: `${Math.random() * 100}%`,
+                  animationDelay: `${Math.random() * 4}s`,
+                  fontSize: `${20 + Math.random() * 20}px`,
+                }}
+              />
+            );
+          })}
+        </div>
+        <div className="trust-grid">
+          <div className="trust-card">
+            <FaUsers className="trust-icon" />
+            <h3>5000+</h3>
+            <span>Customers</span>
+          </div>
+          <div className="trust-card">
+            <FaStar className="trust-icon" />
+            <h3>98%</h3>
+            <span>Satisfaction</span>
+          </div>
+          <div className="trust-card">
+            <FaHeadset className="trust-icon" />
+            <h3>24/7</h3>
+            <span>Support</span>
+          </div>
+          <div className="trust-card">
+            <FaRegClock className="trust-icon" />
+            <h3>10+</h3>
+            <span>Years</span>
+          </div>
+        </div>
+      </section>
+      <section className="services">
+        <div className="service-titleback">
+          <span className="about-tag">Our Cleaning Services</span>
+        </div>
+        <div className="services-grid">
+          {services.map((s, i) => (
+            <div
+              className="service-card"
+              key={i}
+              onClick={() => navigate("/services")}
+            >
+              <img src={s.image} alt={s.title} />
+              <div className="service-content">
+                <div className="service-header">
+                  <div className="service-icon">{s.icon}</div>
+                  <h3>{s.title}</h3>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* STORY */}
-        <section className="section story">
-          <div className="story_container">
-            <div className="story_visual">
-              <div className="story_image_wrapper">
-                <img src={about} alt="" />
+                <p>{s.desc}</p>
               </div>
             </div>
-
-            <div className="story_text">
-              <span className="section_tag">Our Heritage</span>
-
-              <h2>
-                A Journey Crafted <br /> With Passion
-              </h2>
-
-              <p>
-                Rooted in timeless culinary traditions, our kitchen blends
-                artistry and precision to create an experience that transcends
-                dining. Every plate tells a story of craftsmanship, culture, and
-                emotion.
-              </p>
-
-              <p className="story_quote">
-                “We don’t just serve food — we create memories that linger.”
-              </p>
-              <br />
-
-              <button
-                className="btn_secondary"
-                onClick={() => navigate("/about")}
-              >
-                Discover More
+          ))}
+        </div>
+        <div className="services-btn-wrapper">
+          <button
+            className="btn-primary services-read-more"
+            onClick={() => navigate("/services")}
+          >
+            Read More
+          </button>
+        </div>
+      </section>
+      <section className="about-section">
+        <span className="about-tag">ABOUT OUR COMPANY</span>
+        <h2>
+          Professional Cleaning Services
+          <span> You Can Trust</span>
+        </h2>
+        <p className="about-description">
+          We deliver premium residential and commercial cleaning solutions,
+          helping clients maintain spotless, healthy, and welcoming spaces. Our
+          experienced team combines modern equipment with eco-friendly practices
+          to ensure exceptional results every time.
+        </p>
+        <div className="about-features">
+          <div className="feature">
+            <span>✓</span>
+            <p>Certified Cleaning Professionals</p>
+          </div>
+          <div className="feature">
+            <span>✓</span>
+            <p>Eco-Friendly Cleaning Products</p>
+          </div>
+          <div className="feature">
+            <span>✓</span>
+            <p>Flexible Scheduling & Fast Service</p>
+          </div>
+          <div className="feature">
+            <span>✓</span>
+            <p>100% Satisfaction Guarantee</p>
+          </div>
+        </div>
+        <div className="about-actions">
+          <button
+            className="about-btn btn-primary"
+            onClick={() => navigate("/about")}
+          >
+            Learn More
+          </button>
+        </div>
+      </section>
+      <section className="pricing">
+        <div className="service-titleback">
+          <h2 className="about-tag">Cleaning Plans</h2>
+        </div>
+        {/* TOGGLE */}
+        <div className="toggleup">
+          <div className="toggle">
+            <button
+              className={billing === "monthly" ? "active" : ""}
+              onClick={() => setBilling("monthly")}
+            >
+              Monthly
+            </button>
+            <button
+              className={billing === "yearly" ? "active" : ""}
+              onClick={() => setBilling("yearly")}
+            >
+              Yearly
+            </button>
+          </div>
+        </div>
+        {/* GRID */}
+        <div className="pricing-grid">
+          {plans.map((plan, i) => (
+            <div key={i} className={`pricing-card`}>
+              {plan.featured && (
+                <div className="badge centered">Most Popular</div>
+              )}
+              <h3>{plan.name}</h3>
+              <h1>${billing === "monthly" ? plan.monthly : plan.yearly}</h1>
+              <p>{plan.desc}</p>
+              <ul>
+                {plan.features.map((f, idx) => (
+                  <li key={idx}>✓ {f}</li>
+                ))}
+              </ul>
+              <button onClick={() => handleChoosePlan(plan)}>
+                Choose Plan
               </button>
             </div>
-          </div>
-        </section>
-
-        {/* EXPERIENCE */}
-        <section className="experience">
-          <div className="experience_overlay" />
-
-          <div className="experience_container">
-            <span className="experience_tag">The Atmosphere</span>
-
-            <h2>
-              An Evening <br /> Beyond Dining
-            </h2>
-
-            <p>
-              Step into a world of soft candlelight, curated soundscapes, and
-              unforgettable culinary artistry designed to awaken every sense.
-            </p>
-
-            <div className="experience_stats">
-              <div>
-                <h3>20+</h3>
-                <p>Signature Dishes</p>
-              </div>
-              <div>
-                <h3>5★</h3>
-                <p>Guest Experience</p>
-              </div>
-              <div>
-                <h3>10+</h3>
-                <p>Years Excellence</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* RESERVATION */}
-
-        <section
-          className="reservation"
-          style={{ backgroundImage: `url(${reservationImg})` }}
+          ))}
+        </div>
+      </section>
+      <section className="cta">
+        <div className="cta-icon">
+          <FaCheckCircle />
+        </div>
+        <h2>
+          Ready For A <span>Spotless Space?</span>
+        </h2>
+        <p>
+          Book professional cleaning services in minutes and enjoy a fresh,
+          healthy home today.
+        </p>
+        <button
+          className="cta-btn"
+          onClick={() => navigate("/book#book_section")}
         >
-          <div className="reservation_overlay" />
-
-          <div className="reservation_container">
-            <span className="reservation_tag">Private Dining</span>
-
-            <h2>
-              Reserve Your <br /> Luxury Experience
-            </h2>
-
-            <p>
-              Secure your table in advance and enjoy a curated fine dining
-              journey designed for unforgettable moments.
-            </p>
-
-            {/* FORM */}
-            <div className="reservation_form">
-              <div
-                className="input_group"
-                onClick={() => dateRef.current?.showPicker()}
-              >
-                <input ref={dateRef} type="date" placeholder="Select Date" />
-              </div>
-              <div
-                className="input_group"
-                onClick={() => timeRef.current?.showPicker()}
-              >
-                <input type="time" ref={timeRef} placeholder="Select Time" />
-              </div>
-
-              <select>
-                <option>1 Guest</option>
-                <option>2 Guests</option>
-                <option>3 Guests</option>
-                <option>4 Guests</option>
-                <option>5 Guests or more</option>
-              </select>
-              <input type="text" placeholder="Your Name" />
-              <input type="email" placeholder="Email Address" />
-              <button className="btn_primary full_btn">
-                Confirm Reservation
-              </button>
-            </div>
-
-            <div className="reservation_note">
-              <WiStars />
-              Limited seats available every evening
-            </div>
-          </div>
-        </section>
-      </div>
-    </PageTransition>
+          Book Now
+        </button>
+      </section>
+    </div>
   );
 }
-
-export default Home;

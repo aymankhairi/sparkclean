@@ -6,94 +6,57 @@ import { FaWhatsapp, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
 function Footer() {
   return (
     <footer className="footer">
-      <div className="footer_container">
-        {/* BRAND */}
-        <div className="footer_box">
-          <h2>Reverie</h2>
+      <div className="footer_content">
+        <div className="footer_brand">
+          <h2>SPARK CLEAN</h2>
           <p>
-            Your one-stop shop for fashion,
-            <br /> accessories, and lifestyle products. Fast delivery, best
-            prices and trusted quality.
+            Professional cleaning services for homes and workplaces, delivering
+            spotless results with trusted experts, modern equipment, and
+            eco-friendly solutions.
           </p>
         </div>
-
-        {/* LINKS */}
-        <div className="footer_box">
-          <h3>Quick Links</h3>
-          <Link to="/" onClick={() => window.scrollTo(0, 0)}>
-            Home
-          </Link>
-          <Link to="/about" onClick={() => window.scrollTo(0, 0)}>
-            About
-          </Link>
-          {/* <Link to="/accessories" onClick={() => window.scrollTo(0, 0)}>Shop</Link> */}
-          <Link to="/contact" onClick={() => window.scrollTo(0, 0)}>
-            Contact
-          </Link>
+        <div className="footer_links">
+          <h3>Navigation</h3>
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/gallery">Gallery</Link>
         </div>
-
-        {/* SUPPORT */}
-        <div className="footer_box">
-          <h3>Discover</h3>
-
-          <Link to="/menu" onClick={() => window.scrollTo(0, 0)}>
-            Our Menu
-          </Link>
-
-          {/* <Link to="/chef" onClick={() => window.scrollTo(0, 0)}>
-            The Chef
-          </Link> */}
-
-          <Link to="/experience" onClick={() => window.scrollTo(0, 0)}>
-            Dining Experience
-          </Link>
-
-          <Link to="/book" onClick={() => window.scrollTo(0, 0)}>
-            Book a Table
-          </Link>
+        <div className="footer_links">
+          <h3>Services</h3>
+          <Link to="/book">Schedule Cleaning</Link>
+          <Link to="/services">Residential Cleaning</Link>
+          <Link to="/services">Commercial Cleaning</Link>
+          <Link to="/contact">Contact Us</Link>
         </div>
-
-        {/* CONTACT */}
-        <div className="footer_box">
+        <div className="footer_contact">
           <h3>Contact</h3>
-          <a className="contact_item" href="mailto:support@vive.com">
-            <span className="icon_wrap">
-              <FaEnvelope />
-            </span>
-            support@Reverie.com
+          <a href="mailto:support@sparkclean.com">
+            <FaEnvelope />
+            <span>support@sparkclean.com</span>
           </a>
-
           <a
-            className="contact_item"
             href="https://wa.me/31123456789"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="icon_wrap">
-              <FaWhatsapp />
-            </span>
-            +31 123 456 789
+            <FaWhatsapp />
+            <span>+31 123 456 789</span>
           </a>
-
           <a
-            className="contact_item"
             href="https://www.google.com/maps?q=Rotterdam,Netherlands"
             target="_blank"
             rel="noopener noreferrer"
           >
-            <span className="icon_wrap">
-              <FaMapMarkerAlt />
-            </span>
-            Rotterdam, Netherlands
+            <FaMapMarkerAlt />
+            <span>Rotterdam, Netherlands</span>
           </a>
         </div>
       </div>
-
       <div className="footer_bottom">
-        <p>© {new Date().getFullYear()} Reverie. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} Spark Clean. All Rights Reserved.</p>
       </div>
     </footer>
   );
 }
-
 export default Footer;

@@ -1,0 +1,147 @@
+.checkout-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top, #0b1a33, #050a14);
+  position: relative;
+  overflow: hidden;
+  padding: 40px;
+}
+
+/* glowing background */
+.checkout-glow {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 174, 239, 0.25), transparent 60%);
+  filter: blur(60px);
+  top: -100px;
+  left: -100px;
+  animation: floatGlow 6s ease-in-out infinite;
+}
+
+@keyframes floatGlow {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(40px);
+  }
+}
+
+.checkout-card {
+  margin-top: 30px;
+  width: 420px;
+  padding: 35px;
+  padding-top: 50px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+  color: white;
+  z-index: 2;
+  position: relative;
+  animation: fadeUp 0.8s ease;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.checkout-header h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.checkout-header p {
+  opacity: 0.7;
+  font-size: 14px;
+}
+
+.plan-box {
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 16px;
+  background: rgba(0, 174, 239, 0.08);
+  border: 1px solid rgba(0, 174, 239, 0.2);
+}
+
+.plan-box h2 {
+  margin-bottom: 5px;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #00aeef;
+}
+
+.price span {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+.features {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.feature-item {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.pay-btn {
+  margin-top: 25px;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #00aeef, #0077ff);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 174, 239, 0.3);
+}
+
+.processing {
+  margin-top: 25px;
+  text-align: center;
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.secure-note {
+  margin-top: 15px;
+  font-size: 12px;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.checkout-empty {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}

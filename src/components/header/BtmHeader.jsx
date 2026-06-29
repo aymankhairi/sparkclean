@@ -8,13 +8,12 @@ import { CiCircleChevDown } from "react-icons/ci";
 
 const NavLinks = [
   { title: "Home", link: "/" },
-  { title: "Menu", link: "/menu" },
-  { title: "Our Story", link: "/about" },
-  { title: "Book", link: "/book" },
+  { title: "Services", link: "/services" },
+  { title: "About Us", link: "/about" },
   { title: "Gallery", link: "/gallery" },
-  { title: "Visit", link: "/contact" },
+  { title: "Book", link: "/book" },
+  { title: "Contact", link: "/contact" },
 ];
-
 function BtmHeader() {
   const menuRef = useRef();
   const categoryRef = useRef();
@@ -23,14 +22,11 @@ function BtmHeader() {
       if (menuRef.current && !menuRef.current.contains(e.target)) {
         setMenuOpen(false);
       }
-
       if (categoryRef.current && !categoryRef.current.contains(e.target)) {
         setIsCategoryOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -52,49 +48,14 @@ function BtmHeader() {
       <div className="btm_header">
         <div className="container">
           <nav className="nav">
-            <div ref={categoryRef} className="category_nav">
-              {/* <div
-                className="category_btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsCategoryOpen(!isCategoryOpen);
-                }}
-              > */}
-              {/* <div
-                  className="mobile_menu_btn"
-                  onClick={(e) => {
-                    {
-                      e.stopPropagation();
-                      setMenuOpen(!menuOpen);
-                    }
-                  }}
-                >
-                  <FiMenu />
-                </div> */}
-              {/* <p className="category_text">
-                  Explore Dishes <CiCircleChevDown />
-                </p> */}
-              {/* </div> */}
-              {/* <div
-                className={`category_nav_list ${isCategoryOpen ? "active" : ""}`}
-              >
-                {categories.map((category) => (
-                  <Link
-                    key={category.slug}
-                    to={`category/${category.slug}`}
-                    onClick={() => window.scrollTo(0, 0)}
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </div> */}
-            </div>
+            <div ref={categoryRef} className="category_nav"></div>
             <div
               ref={menuRef}
               className={`nav_links ${menuOpen ? "active" : ""}`}
             >
               {NavLinks.map((item) => (
                 <Link
+                  key={item.link}
                   to={item.link}
                   onClick={() => {
                     window.scrollTo(0, 0);
@@ -102,8 +63,6 @@ function BtmHeader() {
                   }}
                 >
                   <li
-                    key={item.link}
-                    // className={location.pathname === item.link ? "active" : ""}
                     className={`nav_item ${location.pathname === item.link ? "active" : ""}`}
                   >
                     {item.title}
@@ -112,18 +71,9 @@ function BtmHeader() {
               ))}
             </div>
           </nav>
-          {/* <div className="sign_regs_icon">
-            <Link to="/">
-              <PiSignInBold />
-            </Link>
-            <Link to="/">
-              <FaUserPlus />
-            </Link>
-          </div> */}
         </div>
       </div>
     </div>
   );
 }
-
 export default BtmHeader;

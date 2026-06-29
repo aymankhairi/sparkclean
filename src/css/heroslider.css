@@ -5,7 +5,7 @@
   right: -6px;
   width: 20px;
   height: 20px;
-  background: var(--main_color);
+  background: var(--primary);
   color: white;
   font-size: 11px;
   display: flex;
@@ -321,7 +321,7 @@
   font-weight: 700;
   line-height: 1.2;
 
-  color: var(--main_color);
+  color: var(--primary);
 
   margin-bottom: 15px;
 }
